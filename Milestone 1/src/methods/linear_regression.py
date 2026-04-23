@@ -11,6 +11,7 @@ class LinearRegression(object):
         Initialize the new object (see dummy_methods.py)
         and set its arguments.
         """
+        self.w = None
 
     def fit(self, training_data, training_labels):
         """
@@ -30,6 +31,14 @@ class LinearRegression(object):
         #### WRITE YOUR CODE HERE!
         ###
         ##
+        
+        '''
+        closed form solution for linear regression:
+        w = (X^T X)^-1 X^T y
+        X is the training data, y is the training labels, w is the weights of the model.
+        '''
+        self.w = np.linalg.inv(training_data.T @ training_data) @ training_data.T @ training_labels
+        pred_labels = training_data @ self.w
         return pred_labels
 
     def predict(self, test_data):
@@ -46,4 +55,7 @@ class LinearRegression(object):
         #### WRITE YOUR CODE HERE!
         ###
         ##
+        if self.w is None:
+            raise ValueError("Model is not trained yet. Call fit() before predict().")
+        pred_labels = test_data @ self.w
         return pred_labels

@@ -51,14 +51,21 @@ def main(args):
 
     elif args.method == "knn":
         ### WRITE YOUR CODE HERE
+        # print("Initializing KNN...")
+        method_obj = KNN(K=args.K)
         pass
 
     elif args.method == "logistic_regression":
         ### WRITE YOUR CODE HERE
+        # print("Initializing logistic regression...")
+        method_obj = LogisticRegression(lr=args.lr, max_iters=args.max_iters)
         pass
 
     elif args.method == "linear_regression":
         ### WRITE YOUR CODE HERE
+        # print("Initializing linear regression...")
+        method_obj = LinearRegression()
+
         pass
 
     else:
