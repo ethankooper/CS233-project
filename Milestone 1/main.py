@@ -20,7 +20,7 @@ def main(args):
                           of this file). Their value can be accessed as "args.argument".
     """
 
-
+    print(f"args: {args}")
     dataset_path = args.data_path
     if not os.path.exists(dataset_path):
         raise FileNotFoundError(f"Dataset not found at {dataset_path}")
@@ -52,7 +52,7 @@ def main(args):
     elif args.method == "knn":
         ### WRITE YOUR CODE HERE
         # print("Initializing KNN...")
-        method_obj = KNN(K=args.K)
+        method_obj = KNN(k=args.K)
         pass
 
     elif args.method == "logistic_regression":

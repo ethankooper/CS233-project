@@ -19,6 +19,7 @@ class LogisticRegression(object):
         """
         self.lr = lr
         self.max_iters = max_iters
+        self.w = None
 
     def fit(self, training_data, training_labels):
         """
@@ -35,6 +36,11 @@ class LogisticRegression(object):
         #### WRITE YOUR CODE HERE!
         ###
         ##
+        N, D = training_data.shape
+        C = get_n_classes(training_labels)
+        # Initialize weights
+        self.w = np.linalg.inv(training_data.T @ training_data) @ training_data.T @ label_to_onehot(training_labels, C)
+        pred_labels = self.predict(training_data)
         return pred_labels
 
     def predict(self, test_data):
@@ -51,4 +57,16 @@ class LogisticRegression(object):
         #### WRITE YOUR CODE HERE!
         ###
         ##
+        """
+        y^(k) = (exp((w*_k)^T x))/(sum_j^C exp((w*_j)^T x)))
+        Then the label is K = argmax_j y^(j)(x)
+        """
+        if self.w is None:
+            raise ValueError("Model is not trained yet. Call fit() before predict().")
+        # print("w shape: ", self.w.shape)
+        # print("test data shape: ", test_data.shape)
+        A = np.exp(self.w.T @ test_data.T)
+        B = np.sum(A, axis=0)
+        y_hat = A / B
+        pred_labels = np.argmax(y_hat, axis=0)
         return pred_labels
